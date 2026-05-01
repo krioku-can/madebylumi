@@ -4,358 +4,770 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Made by Lumi — Your Vision, Built Right</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            dark: '#0a0a0a',
-            'dark-secondary': '#1a1a1a',
-            'dark-tertiary': '#1f1f1f',
-            red: {
-              DEFAULT: '#8B0000',
-              light: '#A52A2A',
-              bright: '#DC143C',
-              deep: '#660000',
-            },
-            'gray-custom': {
-              light: '#a0a0a0',
-              DEFAULT: '#b0b0b0',
-              dark: '#2a2a2a',
-            }
-          }
-        }
-      }
-    }
-  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <style type="text/tailwindcss">
-    @layer base {
-      html { scroll-behavior: smooth; }
-      body { font-family: 'Inter', sans-serif; }
-      h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0a0a0a;
+      --bg-secondary: #111111;
+      --bg-tertiary: #1a1a1a;
+      --red: #8B0000;
+      --red-bright: #DC143C;
+      --red-glow: rgba(139, 0, 0, 0.15);
+      --text: #f5f5f7;
+      --text-secondary: #86868b;
+      --text-tertiary: #6e6e73;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    ::selection { background: rgba(139, 0, 0, 0.4); color: white; }
+
+    /* ── Navigation ── */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      background: rgba(10, 10, 10, 0.72);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    nav .nav-inner {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    nav .logo {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+
+    nav .links { display: flex; gap: 32px; align-items: center; }
+
+    nav .links a {
+      font-size: 12px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.3s;
+      font-weight: 400;
+    }
+
+    nav .links a:hover { color: var(--text); }
+
+    nav .links .cta-nav {
+      font-size: 12px;
+      color: var(--text);
+      background: var(--red);
+      padding: 6px 16px;
+      border-radius: 980px;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+
+    nav .links .cta-nav:hover { background: var(--red-bright); }
+
+    /* ── Sections ── */
+    section {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-content {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding-top: 48px;
+    }
+
+    .hero-overline {
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--red-bright);
+      margin-bottom: 20px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 1s 0.2s forwards;
+    }
+
+    .hero h1 {
+      font-size: clamp(48px, 8vw, 80px);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      color: var(--text);
+      margin-bottom: 24px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 1s 0.4s forwards;
+    }
+
+    .hero h1 .red { color: var(--red-bright); }
+
+    .hero-sub {
+      font-size: clamp(18px, 2.5vw, 24px);
+      font-weight: 300;
+      color: var(--text-secondary);
+      max-width: 600px;
+      line-height: 1.4;
+      margin-bottom: 48px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 1s 0.6s forwards;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 1s 0.8s forwards;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      background: var(--red);
+      color: white;
+      font-size: 17px;
+      font-weight: 500;
+      border-radius: 980px;
+      text-decoration: none;
+      transition: all 0.3s;
+      border: none;
+    }
+
+    .btn-primary:hover { background: var(--red-bright); transform: scale(1.02); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      background: transparent;
+      color: var(--red-bright);
+      font-size: 17px;
+      font-weight: 500;
+      border-radius: 980px;
+      text-decoration: none;
+      transition: all 0.3s;
+      border: 1px solid rgba(139, 0, 0, 0.4);
+    }
+
+    .btn-secondary:hover { background: rgba(139, 0, 0, 0.08); }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      animation: fadeUp 1s 1.2s forwards;
+    }
+
+    .scroll-hint svg {
+      width: 24px;
+      height: 24px;
+      color: var(--text-tertiary);
+      animation: bounce 2s infinite;
+    }
+
+    /* ── Statement sections (Apple style big text) ── */
+    .statement {
+      padding: 160px 0;
+      text-align: center;
+    }
+
+    .statement h2 {
+      font-size: clamp(36px, 6vw, 56px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .statement p {
+      font-size: clamp(18px, 2.2vw, 21px);
+      color: var(--text-secondary);
+      max-width: 680px;
+      margin: 0 auto;
+      line-height: 1.5;
+      font-weight: 300;
+    }
+
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    /* ── Services grid ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      padding: 0 0 160px 0;
+    }
+
+    .service-card {
+      background: var(--bg-secondary);
+      border-radius: 24px;
+      padding: 48px 40px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
+
+    .service-card:hover {
+      border-color: rgba(139, 0, 0, 0.3);
+      transform: translateY(-4px);
+    }
+
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: var(--red-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    .service-icon svg { width: 24px; height: 24px; color: var(--red-bright); }
+
+    .service-card h3 {
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .service-card p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    /* ── Case Study ── */
+    .case-study {
+      padding: 160px 0;
+    }
+
+    .case-study-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .case-study-image {
+      border-radius: 24px;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+    }
+
+    .case-study-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .case-label {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--red-bright);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .case-study h3 {
+      font-size: clamp(32px, 4vw, 44px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .case-study .case-desc {
+      font-size: 17px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      font-weight: 300;
+      margin-bottom: 32px;
+    }
+
+    .case-features {
+      list-style: none;
+      display: grid;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .case-features li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 15px;
+      color: var(--text-secondary);
+    }
+
+    .case-features li svg {
+      width: 20px;
+      height: 20px;
+      color: var(--red-bright);
+      flex-shrink: 0;
+    }
+
+    .case-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 17px;
+      color: var(--red-bright);
+      text-decoration: none;
+      font-weight: 500;
+      transition: gap 0.3s;
+    }
+
+    .case-link:hover { gap: 10px; }
+
+    /* ── Stats row ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      padding-bottom: 160px;
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 48px 24px;
+      background: var(--bg-secondary);
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .stat-card .stat-number {
+      font-size: 48px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--red-bright);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-card .stat-label {
+      font-size: 14px;
+      color: var(--text-tertiary);
+      font-weight: 400;
+    }
+
+    /* ── Process ── */
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      padding-bottom: 160px;
+    }
+
+    .process-step {
+      padding: 48px 40px;
+      background: var(--bg-secondary);
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      text-align: center;
+    }
+
+    .process-step .step-number {
+      font-size: 64px;
+      font-weight: 700;
+      color: var(--red);
+      opacity: 0.3;
+      line-height: 1;
+      margin-bottom: 16px;
+      letter-spacing: -0.04em;
+    }
+
+    .process-step h3 {
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .process-step p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    /* ── Contact / CTA ── */
+    .cta-section {
+      padding: 160px 0;
+      text-align: center;
+      position: relative;
+    }
+
+    .cta-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(139, 0, 0, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-section h2 {
+      font-size: clamp(40px, 6vw, 64px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .cta-section p {
+      font-size: 21px;
+      color: var(--text-secondary);
+      font-weight: 300;
+      margin-bottom: 48px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.5;
+      position: relative;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 24px 0;
+    }
+
+    footer .footer-inner {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer .footer-text {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+
+    footer .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    footer .footer-links a {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    footer .footer-links a:hover { color: var(--text); }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(8px); }
+      60% { transform: translateY(4px); }
+    }
+
     .reveal {
       opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
     }
+
     .reveal.visible {
       opacity: 1;
       transform: translateY(0);
     }
-    .hero-bg {
-      background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 50%, #0a0a0a 100%);
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      nav .links { display: none; }
+      .services-grid { grid-template-columns: 1fr; }
+      .case-study-inner { grid-template-columns: 1fr; gap: 40px; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .process-steps { grid-template-columns: 1fr; }
+      .hero-ctas { flex-direction: column; align-items: center; }
+      footer .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
     }
 
-    .red-glow {
-      box-shadow: 0 0 20px rgba(139, 0, 0, 0.3);
-    }
-    .red-glow:hover {
-      box-shadow: 0 0 30px rgba(220, 20, 60, 0.5);
-    }
-    .card-hover {
-      transition: all 0.3s ease;
-    }
-    .card-hover:hover {
-      border-color: rgba(139, 0, 0, 0.5);
-      box-shadow: 0 4px 20px rgba(139, 0, 0, 0.15);
-    }
-    .accent-line {
-      background: linear-gradient(90deg, transparent, #8B0000, transparent);
-    }
-    .red-accent-border {
-      border-left: 3px solid #8B0000;
-    }
-    ::selection {
-      background: rgba(139, 0, 0, 0.4);
-      color: white;
+    @media (max-width: 480px) {
+      .stats-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
-<body class="bg-dark text-white antialiased">
+<body>
 
   <!-- Navigation -->
-  <nav class="fixed top-0 w-full z-50 bg-dark/90 backdrop-blur-md border-b border-gray-800/50">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="#" class="text-2xl font-bold text-white" style="font-family: 'Playfair Display', serif;">Made by Lumi</a>
-      <div class="hidden md:flex items-center gap-8">
-        <a href="#about" class="text-sm font-medium text-gray-custom hover:text-white transition-colors">About</a>
-        <a href="#services" class="text-sm font-medium text-gray-custom hover:text-white transition-colors">Services</a>
-        <a href="#work" class="text-sm font-medium text-gray-custom hover:text-white transition-colors">Work</a>
-        <a href="#process" class="text-sm font-medium text-gray-custom hover:text-white transition-colors">Process</a>
-        <a href="#contact" class="text-sm font-medium px-5 py-2 bg-red text-white rounded-full hover:bg-red-bright transition-colors red-glow">Contact</a>
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="logo">Made by Lumi</a>
+      <div class="links">
+        <a href="#services">Services</a>
+        <a href="#work">Work</a>
+        <a href="#process">Process</a>
+        <a href="#contact" class="cta-nav">Get Started</a>
       </div>
-      <button id="mobile-menu-btn" class="md:hidden text-white">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-      </button>
-    </div>
-    <div id="mobile-menu" class="hidden md:hidden bg-dark border-t border-gray-800/50 px-6 py-4 space-y-3">
-      <a href="#about" class="block text-sm font-medium text-gray-custom hover:text-white">About</a>
-      <a href="#services" class="block text-sm font-medium text-gray-custom hover:text-white">Services</a>
-      <a href="#work" class="block text-sm font-medium text-gray-custom hover:text-white">Work</a>
-      <a href="#process" class="block text-sm font-medium text-gray-custom hover:text-white">Process</a>
-      <a href="#contact" class="block text-sm font-medium text-red">Contact</a>
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <section class="hero-bg min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
-    <div class="absolute inset-0 opacity-10">
-      <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-        <defs>
-          <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
-            <circle cx="5" cy="5" r="0.5" fill="white"/>
-          </pattern>
-        </defs>
-        <rect width="100" height="100" fill="url(#grid)"/>
-      </svg>
+  <!-- Hero -->
+  <section class="hero" id="top">
+    <p class="hero-overline">Web Design Studio</p>
+    <h1>Websites that<br><span class="red">work as hard</span><br>as you do.</h1>
+    <p class="hero-sub">Custom websites for small businesses. No templates. No corners cut. Just clean design that turns visitors into customers.</p>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn-primary">Start a Project</a>
+      <a href="#work" class="btn-secondary">See Our Work</a>
     </div>
-    <!-- Subtle red ambient glow -->
-    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-red/10 rounded-full blur-[100px]"></div>
-    <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
-      <p class="text-red text-sm tracking-[0.3em] uppercase mb-2 reveal">Web Design Studio</p>
-      <h1 class="text-5xl md:text-7xl font-bold text-white mb-4 reveal" style="transition-delay: 0.1s;">Made by Lumi</h1>
-      <p class="text-xl md:text-2xl text-gray-custom mb-10 font-light reveal mt-2" style="transition-delay: 0.2s;">Your vision, built right</p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center reveal" style="transition-delay: 0.3s;">
-        <a href="#contact" class="px-8 py-4 bg-red text-white font-semibold rounded-full hover:bg-red-bright transition-colors red-glow">Start a Project</a>
-        <a href="#work" class="px-8 py-4 border border-red/40 text-white font-semibold rounded-full hover:bg-red/10 transition-colors">View Our Work</a>
-      </div>
-    </div>
-    <div class="absolute bottom-10 left-1/2 -translate-x-1/2">
-      <a href="#about" class="text-red/50 hover:text-red/80 transition-colors">
-        <svg class="w-6 h-6 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
-      </a>
+    <div class="scroll-hint">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
     </div>
   </section>
 
-  <!-- About Section -->
-  <section id="about" class="py-24 bg-dark">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="grid md:grid-cols-2 gap-16 items-center">
-        <div class="reveal">
-          <p class="text-red text-sm tracking-[0.2em] uppercase mb-4 font-medium">About Us</p>
-          <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Small Business Websites, Crafted with Care</h2>
-          <p class="text-gray-custom text-lg leading-relaxed mb-6">Made by Lumi is a web design studio built for small businesses that deserve a website as unique as they are. We don't do templates. We don't cut corners. Every site is hand-crafted to tell your story and turn visitors into customers.</p>
-          <p class="text-gray-custom text-lg leading-relaxed mb-8">Based in Ohio, working with businesses everywhere. We believe great design shouldn't be a luxury — it should be the standard.</p>
-          <div class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full bg-red/10 flex items-center justify-center">
-              <svg class="w-6 h-6 text-red" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-            </div>
-            <div>
-              <p class="font-semibold text-white">Ohio-Based</p>
-              <p class="text-sm text-gray-custom">Working with businesses everywhere</p>
-            </div>
+  <div class="divider"></div>
+
+  <!-- Statement -->
+  <section class="statement reveal">
+    <div class="section-content">
+      <h2>Great design<br>isn't a luxury.</h2>
+      <p>It's the difference between a visitor bouncing and a customer buying. We believe every small business deserves a website that reflects who they are — not a template that looks like everyone else.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Services -->
+  <section id="services" style="padding: 160px 0 0 0;">
+    <div class="section-content">
+      <div class="reveal" style="text-align: center; margin-bottom: 64px;">
+        <p class="case-label">What We Do</p>
+        <h2 style="font-size: clamp(36px, 6vw, 56px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 16px;">Everything you need<br>to stand out.</h2>
+        <p style="font-size: 19px; color: var(--text-secondary); font-weight: 300; max-width: 500px; margin: 0 auto;">From your first website to a full brand overhaul.</p>
+      </div>
+      <div class="services-grid reveal">
+        <div class="service-card">
+          <div class="service-icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
           </div>
+          <h3>Website Design</h3>
+          <p>Custom, mobile-responsive websites built to convert. Every pixel serves a purpose.</p>
         </div>
-        <div class="reveal bg-gradient-to-br from-dark-secondary to-dark-tertiary rounded-2xl p-10 text-white border border-gray-800">
-          <div class="grid grid-cols-2 gap-8">
-            <div class="text-center">
-              <p class="text-4xl font-bold text-red mb-2">100%</p>
-              <p class="text-gray-custom text-sm">Custom Design</p>
-            </div>
-            <div class="text-center">
-              <p class="text-4xl font-bold text-red mb-2">48h</p>
-              <p class="text-gray-custom text-sm">Turnaround</p>
-            </div>
-            <div class="text-center">
-              <p class="text-4xl font-bold text-red mb-2">1:1</p>
-              <p class="text-gray-custom text-sm">Collaboration</p>
-            </div>
-            <div class="text-center">
-              <p class="text-4xl font-bold text-red mb-2">∞</p>
-              <p class="text-gray-custom text-sm">Revisions</p>
-            </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
           </div>
+          <h3>Branding & Identity</h3>
+          <p>Logos, colors, typography — everything that makes you instantly recognizable.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+          </div>
+          <h3>Business Operations</h3>
+          <p>Booking systems, forms, payments, and automation that saves you hours every week.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          </div>
+          <h3>Competitive Research</h3>
+          <p>Understand your market, identify opportunities, and position ahead of competitors.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Services Section -->
-  <section id="services" class="py-24 bg-dark-secondary">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="text-center mb-16 reveal">
-        <p class="text-red text-sm tracking-[0.2em] uppercase mb-4 font-medium">What We Do</p>
-        <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">Services Built for Growth</h2>
-        <p class="text-gray-custom text-lg max-w-2xl mx-auto">From your first website to a full brand overhaul, we provide everything you need to stand out online.</p>
-      </div>
-      <div class="grid md:grid-cols-2 gap-8">
-        <div class="bg-dark p-8 rounded-2xl border border-gray-800 card-hover reveal">
-          <div class="w-14 h-14 rounded-xl bg-red/10 flex items-center justify-center mb-6">
-            <svg class="w-7 h-7 text-red" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-          </div>
-          <h3 class="text-2xl font-bold text-white mb-3">Website Design</h3>
-          <p class="text-gray-custom leading-relaxed">Custom, mobile-responsive websites built to convert. From simple landing pages to multi-page business sites — every pixel serves a purpose.</p>
+  <div class="divider"></div>
+
+  <!-- Case Study -->
+  <section id="work" class="case-study">
+    <div class="section-content">
+      <div class="case-study-inner reveal">
+        <div class="case-study-image">
+          <img src="images/bouquet-custom.jpg" alt="Ivy & Rose Floral Co. — Handcrafted bouquet">
         </div>
-        <div class="bg-dark p-8 rounded-2xl border border-gray-800 card-hover reveal">
-          <div class="w-14 h-14 rounded-xl bg-red/10 flex items-center justify-center mb-6">
-            <svg class="w-7 h-7 text-red" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
-          </div>
-          <h3 class="text-2xl font-bold text-white mb-3">Branding & Identity</h3>
-          <p class="text-gray-custom leading-relaxed">Logos, color palettes, typography, and brand guidelines that make you instantly recognizable. Consistent, memorable, and unmistakably you.</p>
-        </div>
-        <div class="bg-dark p-8 rounded-2xl border border-gray-800 card-hover reveal">
-          <div class="w-14 h-14 rounded-xl bg-red/10 flex items-center justify-center mb-6">
-            <svg class="w-7 h-7 text-red" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-          </div>
-          <h3 class="text-2xl font-bold text-white mb-3">Business Operations</h3>
-          <p class="text-gray-custom leading-relaxed">Streamline your workflow with integrated booking systems, contact forms, payment processing, and automation that saves you hours every week.</p>
-        </div>
-        <div class="bg-dark p-8 rounded-2xl border border-gray-800 card-hover reveal">
-          <div class="w-14 h-14 rounded-xl bg-red/10 flex items-center justify-center mb-6">
-            <svg class="w-7 h-7 text-red" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-          </div>
-          <h3 class="text-2xl font-bold text-white mb-3">Competitive Research</h3>
-          <p class="text-gray-custom leading-relaxed">Understand your market, identify opportunities, and position ahead of competitors. Data-driven insights that inform smarter business decisions.</p>
+        <div>
+          <p class="case-label">Featured Work</p>
+          <h3>Ivy & Rose<br>Floral Co.</h3>
+          <p class="case-desc">A complete digital presence for a growing floral business — elegant gallery, custom order system, and a seasonal campaign that drove record sales.</p>
+          <ul class="case-features">
+            <li>
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              Photo gallery with lightbox
+            </li>
+            <li>
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              Custom order form
+            </li>
+            <li>
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              Mother's Day campaign page
+            </li>
+            <li>
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              Mobile-optimized, fast loading
+            </li>
+          </ul>
+          <a href="https://ivyrosefloral.netlify.app" target="_blank" class="case-link">
+            View Live Site
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Case Study Section -->
-  <section id="work" class="py-24 bg-dark">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="text-center mb-16 reveal">
-        <p class="text-red text-sm tracking-[0.2em] uppercase mb-4 font-medium">Featured Work</p>
-        <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">Case Study: Ivy & Rose Floral Co.</h2>
-        <p class="text-gray-custom text-lg max-w-2xl mx-auto">A complete digital presence for a growing floral business.</p>
-      </div>
-      <div class="bg-gradient-to-br from-dark-secondary to-dark-tertiary rounded-3xl overflow-hidden shadow-2xl border border-gray-800 reveal">
-        <div class="grid md:grid-cols-2">
-          <div class="p-10 md:p-14 text-white">
-            <div class="flex items-center gap-3 mb-6">
-              <div class="w-10 h-10 rounded-full bg-red/20 flex items-center justify-center">
-                <svg class="w-5 h-5 text-red" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
-              </div>
-              <span class="text-sm font-medium text-gray-custom">Floral & Gifts</span>
-            </div>
-            <h3 class="text-3xl font-bold mb-4">Ivy & Rose Floral Co.</h3>
-            <p class="text-gray-custom leading-relaxed mb-6">A stunning floral company website featuring an elegant gallery showcasing arrangements, a streamlined order form for custom bouquets, and a seasonal Mother's Day campaign that drove record sales.</p>
-            <ul class="space-y-3 mb-8">
-              <li class="flex items-center gap-3">
-                <svg class="w-5 h-5 text-red" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                <span class="text-gray-custom">Photo gallery with lightbox</span>
-              </li>
-              <li class="flex items-center gap-3">
-                <svg class="w-5 h-5 text-red" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                <span class="text-gray-custom">Custom order form</span>
-              </li>
-              <li class="flex items-center gap-3">
-                <svg class="w-5 h-5 text-red" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                <span class="text-gray-custom">Mother's Day campaign page</span>
-              </li>
-              <li class="flex items-center gap-3">
-                <svg class="w-5 h-5 text-red" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                <span class="text-gray-custom">Mobile-optimized design</span>
-              </li>
-            </ul>
-            <div class="flex flex-wrap gap-3">
-              <span class="px-4 py-2 bg-red/10 rounded-full text-sm text-gray-custom border border-red/20">Web Design</span>
-              <span class="px-4 py-2 bg-red/10 rounded-full text-sm text-gray-custom border border-red/20">Gallery</span>
-              <span class="px-4 py-2 bg-red/10 rounded-full text-sm text-gray-custom border border-red/20">Order Form</span>
-              <span class="px-4 py-2 bg-red/10 rounded-full text-sm text-gray-custom border border-red/20">Campaign</span>
-            </div>
-          </div>
-          <div class="bg-dark-tertiary/50 p-10 md:p-14 flex items-center justify-center border-l border-gray-800">
-            <img src="images/bouquet-custom.jpg" alt="Ivy & Rose Floral Co. — Mother's Day bouquet" class="w-full max-w-sm rounded-xl shadow-lg border border-gray-800 object-cover" style="aspect-ratio: 2/3;">
-          </div>
+  <div class="divider"></div>
+
+  <!-- Stats -->
+  <section style="padding: 160px 0 0 0;">
+    <div class="section-content">
+      <div class="stats-row reveal">
+        <div class="stat-card">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Custom Design</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">48h</div>
+          <div class="stat-label">Turnaround</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">1:1</div>
+          <div class="stat-label">Collaboration</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">∞</div>
+          <div class="stat-label">Revisions</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Process Section -->
-  <section id="process" class="py-24 bg-dark-secondary">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="text-center mb-16 reveal">
-        <p class="text-red text-sm tracking-[0.2em] uppercase mb-4 font-medium">How It Works</p>
-        <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">Simple, Transparent Process</h2>
-        <p class="text-gray-custom text-lg max-w-2xl mx-auto">Three steps from idea to live website. No surprises, no hidden fees.</p>
+  <div class="divider"></div>
+
+  <!-- Process -->
+  <section id="process" style="padding: 160px 0 0 0;">
+    <div class="section-content">
+      <div class="reveal" style="text-align: center; margin-bottom: 64px;">
+        <p class="case-label">How It Works</p>
+        <h2 style="font-size: clamp(36px, 6vw, 56px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1;">Three steps.<br>That's it.</h2>
       </div>
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="relative reveal">
-          <div class="bg-dark p-8 rounded-2xl border border-gray-800 h-full card-hover">
-            <div class="w-14 h-14 rounded-full bg-red text-white flex items-center justify-center text-xl font-bold mb-6 red-glow">1</div>
-            <h3 class="text-2xl font-bold text-white mb-3">Discover</h3>
-            <p class="text-gray-custom leading-relaxed">We start with a conversation. Tell us about your business, your goals, and your vision. We'll research your market and competitors to find opportunities.</p>
-          </div>
-          <div class="hidden md:block absolute top-1/2 -right-4 w-8 h-0.5 bg-red/30"></div>
+      <div class="process-steps reveal">
+        <div class="process-step">
+          <div class="step-number">01</div>
+          <h3>Discover</h3>
+          <p>We learn your business, your goals, and your audience. No assumptions — just questions and listening.</p>
         </div>
-        <div class="relative reveal">
-          <div class="bg-dark p-8 rounded-2xl border border-gray-800 h-full card-hover">
-            <div class="w-14 h-14 rounded-full bg-red text-white flex items-center justify-center text-xl font-bold mb-6 red-glow">2</div>
-            <h3 class="text-2xl font-bold text-white mb-3">Design</h3>
-            <p class="text-gray-custom leading-relaxed">We create a custom design tailored to your brand. You'll review and provide feedback. We iterate until it's exactly right — no limits on revisions.</p>
-          </div>
-          <div class="hidden md:block absolute top-1/2 -right-4 w-8 h-0.5 bg-red/30"></div>
+        <div class="process-step">
+          <div class="step-number">02</div>
+          <h3>Design</h3>
+          <p>Custom design built around your brand. You see every iteration. Nothing ships without your sign-off.</p>
         </div>
-        <div class="reveal">
-          <div class="bg-dark p-8 rounded-2xl border border-gray-800 h-full card-hover">
-            <div class="w-14 h-14 rounded-full bg-red text-white flex items-center justify-center text-xl font-bold mb-6 red-glow">3</div>
-            <h3 class="text-2xl font-bold text-white mb-3">Deliver</h3>
-            <p class="text-gray-custom leading-relaxed">Your site goes live, fully responsive and optimized. We handle deployment and provide training so you can manage your content with confidence.</p>
-          </div>
+        <div class="process-step">
+          <div class="step-number">03</div>
+          <h3>Deliver</h3>
+          <p>Launch, test, and iterate. Your site goes live fast, and we stick around to make sure it performs.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Contact Section -->
-  <section id="contact" class="py-24 bg-dark">
-    <div class="max-w-4xl mx-auto px-6 text-center reveal">
-      <p class="text-red text-sm tracking-[0.2em] uppercase mb-4 font-medium">Get In Touch</p>
-      <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Ready to Build Something?</h2>
-      <p class="text-gray-custom text-lg mb-10 max-w-xl mx-auto">Tell us about your project. We'll respond within 24 hours with ideas, pricing, and next steps.</p>
-      <a href="mailto:lumi.nelloms@gmail.com" class="inline-flex items-center gap-3 px-8 py-4 bg-red text-white font-semibold rounded-full hover:bg-red-bright transition-colors text-lg red-glow">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-        lumi.nelloms@gmail.com
-      </a>
-      <p class="text-gray-custom text-sm mt-8">Based in Ohio · Working with businesses everywhere</p>
+  <div class="divider"></div>
+
+  <!-- CTA -->
+  <section id="contact" class="cta-section">
+    <div class="cta-glow"></div>
+    <div class="section-content">
+      <div class="reveal">
+        <p class="case-label" style="margin-bottom: 20px;">Ready?</p>
+        <h2>Let's build<br>something great.</h2>
+        <p>Tell us about your project. We'll get back to you within 24 hours.</p>
+        <a href="mailto:hello@madebylumi.com" class="btn-primary">Start a Project</a>
+      </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="py-8 bg-dark border-t border-gray-800">
-    <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-      <p class="text-gray-custom text-sm">© 2025 Made by Lumi. All rights reserved.</p>
-      <div class="flex items-center gap-6">
-        <a href="#about" class="text-gray-custom text-sm hover:text-white transition-colors">About</a>
-        <a href="#services" class="text-gray-custom text-sm hover:text-white transition-colors">Services</a>
-        <a href="#work" class="text-gray-custom text-sm hover:text-white transition-colors">Work</a>
-        <a href="#contact" class="text-gray-custom text-sm hover:text-white transition-colors">Contact</a>
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-text">© 2026 Made by Lumi. Ohio-based, working everywhere.</div>
+      <div class="footer-links">
+        <a href="mailto:hello@madebylumi.com">Email</a>
+        <a href="https://twitter.com/madebylumi" target="_blank">X</a>
       </div>
     </div>
   </footer>
 
+  <!-- Scroll reveal -->
   <script>
-    // Scroll reveal animation
-    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
         }
       });
-    }, observerOptions);
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-    // Mobile menu toggle
-    document.getElementById('mobile-menu-btn').addEventListener('click', () => {
-      document.getElementById('mobile-menu').classList.toggle('hidden');
-    });
-
-    // Close mobile menu on link click
-    document.querySelectorAll('#mobile-menu a').forEach(link => {
-      link.addEventListener('click', () => {
-        document.getElementById('mobile-menu').classList.add('hidden');
-      });
-    });
   </script>
+
 </body>
 </html>
