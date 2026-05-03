@@ -3,7 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Made by Lumi — Your Vision, Built Right</title>
+  <title>Made by Lumi — Web Design for Small Business</title>
+  <meta name="description" content="Custom websites for small businesses. No templates. No corners cut. Clean design that turns visitors into customers.">
+  <meta property="og:title" content="Made by Lumi — Web Design for Small Business">
+  <meta property="og:description" content="Custom websites for small businesses. No templates. No corners cut.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://madebylumi.com">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Made by Lumi — Web Design for Small Business">
+  <meta name="twitter:description" content="Custom websites for small businesses. No templates. No corners cut.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💡</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -89,11 +98,57 @@
 
     nav .links .cta-nav:hover { background: var(--red-bright); }
 
-    /* ── Sections ── */
-    section {
-      position: relative;
-      overflow: hidden;
+    /* Mobile menu button */
+    nav .menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
     }
+
+    nav .menu-btn svg { width: 24px; height: 24px; color: var(--text); }
+
+    /* Mobile menu overlay */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 48px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+    }
+
+    .mobile-menu.open { display: flex; }
+
+    .mobile-menu a {
+      font-size: 20px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 400;
+      transition: color 0.3s;
+    }
+
+    .mobile-menu a:hover { color: var(--text); }
+
+    .mobile-menu .cta-mobile {
+      color: var(--text) !important;
+      background: var(--red);
+      padding: 12px 32px;
+      border-radius: 980px;
+      font-weight: 500;
+    }
+
+    /* ── Sections ── */
+    section { position: relative; overflow: hidden; }
 
     .section-content {
       max-width: 980px;
@@ -110,6 +165,34 @@
       justify-content: center;
       text-align: center;
       padding-top: 48px;
+      position: relative;
+    }
+
+    /* Subtle grid background */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black 30%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black 30%, transparent 80%);
+      pointer-events: none;
+    }
+
+    /* Red glow in hero */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(139, 0, 0, 0.06) 0%, transparent 70%);
+      pointer-events: none;
     }
 
     .hero-overline {
@@ -121,6 +204,7 @@
       opacity: 0;
       transform: translateY(20px);
       animation: fadeUp 1s 0.2s forwards;
+      position: relative;
     }
 
     .hero h1 {
@@ -133,6 +217,7 @@
       opacity: 0;
       transform: translateY(20px);
       animation: fadeUp 1s 0.4s forwards;
+      position: relative;
     }
 
     .hero h1 .red { color: var(--red-bright); }
@@ -147,6 +232,7 @@
       opacity: 0;
       transform: translateY(20px);
       animation: fadeUp 1s 0.6s forwards;
+      position: relative;
     }
 
     .hero-ctas {
@@ -156,6 +242,7 @@
       opacity: 0;
       transform: translateY(20px);
       animation: fadeUp 1s 0.8s forwards;
+      position: relative;
     }
 
     .btn-primary {
@@ -171,6 +258,7 @@
       text-decoration: none;
       transition: all 0.3s;
       border: none;
+      cursor: pointer;
     }
 
     .btn-primary:hover { background: var(--red-bright); transform: scale(1.02); }
@@ -188,6 +276,7 @@
       text-decoration: none;
       transition: all 0.3s;
       border: 1px solid rgba(139, 0, 0, 0.4);
+      cursor: pointer;
     }
 
     .btn-secondary:hover { background: rgba(139, 0, 0, 0.08); }
@@ -237,7 +326,7 @@
       background: rgba(255, 255, 255, 0.06);
     }
 
-    /* ── Services grid ── */
+    /* ── Capabilities (not "services" — honest framing) ── */
     .services-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -251,12 +340,28 @@
       padding: 48px 40px;
       border: 1px solid rgba(255, 255, 255, 0.04);
       transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--red-bright), transparent);
+      opacity: 0;
+      transition: opacity 0.4s;
     }
 
     .service-card:hover {
       border-color: rgba(139, 0, 0, 0.3);
       transform: translateY(-4px);
     }
+
+    .service-card:hover::before { opacity: 1; }
 
     .service-icon {
       width: 48px;
@@ -286,9 +391,7 @@
     }
 
     /* ── Case Study ── */
-    .case-study {
-      padding: 160px 0;
-    }
+    .case-study { padding: 160px 0; }
 
     .case-study-inner {
       display: grid;
@@ -300,14 +403,48 @@
     .case-study-image {
       border-radius: 24px;
       overflow: hidden;
-      aspect-ratio: 3/4;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      position: relative;
+    }
+
+    .case-study-image .browser-frame {
+      background: var(--bg-tertiary);
+      border-radius: 24px 24px 0 0;
+      padding: 12px 16px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .case-study-image .browser-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .case-study-image .browser-dot:first-child { background: #ff5f57; }
+    .case-study-image .browser-dot:nth-child(2) { background: #ffbd2e; }
+    .case-study-image .browser-dot:nth-child(3) { background: #28ca41; }
+
+    .case-study-image .browser-bar {
+      flex: 1;
+      height: 24px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 6px;
+      margin-left: 12px;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      font-size: 11px;
+      color: var(--text-tertiary);
     }
 
     .case-study-image img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
       display: block;
+      aspect-ratio: 16/10;
+      object-fit: cover;
     }
 
     .case-label {
@@ -370,54 +507,29 @@
 
     .case-link:hover { gap: 10px; }
 
-    /* ── Stats row ── */
-    .stats-row {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      padding-bottom: 160px;
-    }
-
-    .stat-card {
-      text-align: center;
-      padding: 48px 24px;
-      background: var(--bg-secondary);
-      border-radius: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.04);
-    }
-
-    .stat-card .stat-number {
-      font-size: 48px;
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      color: var(--red-bright);
-      line-height: 1;
-      margin-bottom: 8px;
-    }
-
-    .stat-card .stat-label {
-      font-size: 14px;
-      color: var(--text-tertiary);
-      font-weight: 400;
-    }
-
-    /* ── Process ── */
-    .process-steps {
+    /* ── Approach section (honest, not inflated) ── */
+    .approach-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 16px;
       padding-bottom: 160px;
     }
 
-    .process-step {
+    .approach-step {
       padding: 48px 40px;
       background: var(--bg-secondary);
       border-radius: 24px;
       border: 1px solid rgba(255, 255, 255, 0.04);
       text-align: center;
+      transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
     }
 
-    .process-step .step-number {
+    .approach-step:hover {
+      border-color: rgba(139, 0, 0, 0.2);
+      transform: translateY(-4px);
+    }
+
+    .approach-step .step-number {
       font-size: 64px;
       font-weight: 700;
       color: var(--red);
@@ -427,18 +539,73 @@
       letter-spacing: -0.04em;
     }
 
-    .process-step h3 {
+    .approach-step h3 {
       font-size: 24px;
       font-weight: 600;
       letter-spacing: -0.02em;
       margin-bottom: 12px;
     }
 
-    .process-step p {
+    .approach-step p {
       font-size: 15px;
       color: var(--text-secondary);
       line-height: 1.6;
       font-weight: 300;
+    }
+
+    /* ── About / Who We Are ── */
+    .about-section { padding: 160px 0; }
+
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .about-emoji {
+      font-size: 120px;
+      line-height: 1;
+      margin-bottom: 0;
+    }
+
+    .about-text h2 {
+      font-size: clamp(32px, 4vw, 44px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .about-text p {
+      font-size: 17px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      font-weight: 300;
+      margin-bottom: 16px;
+    }
+
+    .about-values {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .about-values li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 15px;
+      color: var(--text-secondary);
+    }
+
+    .about-values li span.value-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--red-bright);
+      flex-shrink: 0;
     }
 
     /* ── Contact / CTA ── */
@@ -480,39 +647,133 @@
       position: relative;
     }
 
+    .cta-methods {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .cta-method {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding: 32px 40px;
+      background: var(--bg-secondary);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      text-decoration: none;
+      transition: all 0.3s;
+      min-width: 200px;
+    }
+
+    .cta-method:hover {
+      border-color: rgba(139, 0, 0, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .cta-method svg {
+      width: 32px;
+      height: 32px;
+      color: var(--red-bright);
+    }
+
+    .cta-method .method-label {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .cta-method .method-detail {
+      font-size: 13px;
+      color: var(--text-tertiary);
+    }
+
     /* ── Footer ── */
     footer {
       border-top: 1px solid rgba(255, 255, 255, 0.06);
-      padding: 24px 0;
+      padding: 48px 0 32px;
     }
 
     footer .footer-inner {
       max-width: 980px;
       margin: 0 auto;
       padding: 0 24px;
+    }
+
+    footer .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 40px;
+    }
+
+    footer .footer-brand h4 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    footer .footer-brand p {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      max-width: 280px;
+      line-height: 1.5;
+    }
+
+    footer .footer-links-group {
+      display: flex;
+      gap: 48px;
+    }
+
+    footer .footer-col h5 {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 12px;
+    }
+
+    footer .footer-col a {
+      display: block;
+      font-size: 13px;
+      color: var(--text-tertiary);
+      text-decoration: none;
+      margin-bottom: 8px;
+      transition: color 0.3s;
+    }
+
+    footer .footer-col a:hover { color: var(--text); }
+
+    footer .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    footer .footer-text {
+    footer .footer-copy {
       font-size: 12px;
       color: var(--text-tertiary);
     }
 
-    footer .footer-links {
+    footer .footer-social {
       display: flex;
-      gap: 24px;
+      gap: 16px;
     }
 
-    footer .footer-links a {
-      font-size: 12px;
+    footer .footer-social a {
       color: var(--text-tertiary);
-      text-decoration: none;
       transition: color 0.3s;
     }
 
-    footer .footer-links a:hover { color: var(--text); }
+    footer .footer-social a:hover { color: var(--text); }
+
+    footer .footer-social svg { width: 18px; height: 18px; }
 
     /* ── Animations ── */
     @keyframes fadeUp {
@@ -539,16 +800,20 @@
     /* ── Responsive ── */
     @media (max-width: 768px) {
       nav .links { display: none; }
+      nav .menu-btn { display: block; }
       .services-grid { grid-template-columns: 1fr; }
       .case-study-inner { grid-template-columns: 1fr; gap: 40px; }
-      .stats-row { grid-template-columns: repeat(2, 1fr); }
-      .process-steps { grid-template-columns: 1fr; }
+      .approach-grid { grid-template-columns: 1fr; }
+      .about-inner { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+      .about-emoji { font-size: 80px; }
       .hero-ctas { flex-direction: column; align-items: center; }
-      footer .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+      .cta-methods { flex-direction: column; align-items: center; }
+      footer .footer-top { flex-direction: column; gap: 32px; }
+      footer .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
     }
 
     @media (max-width: 480px) {
-      .stats-row { grid-template-columns: 1fr; }
+      .cta-method { min-width: auto; width: 100%; }
     }
   </style>
 </head>
@@ -559,13 +824,26 @@
     <div class="nav-inner">
       <a href="#" class="logo">Made by Lumi</a>
       <div class="links">
-        <a href="#services">Services</a>
+        <a href="#capabilities">Capabilities</a>
         <a href="#work">Work</a>
-        <a href="#process">Process</a>
+        <a href="#approach">Approach</a>
+        <a href="#about">About</a>
         <a href="#contact" class="cta-nav">Get Started</a>
       </div>
+      <button class="menu-btn" onclick="document.querySelector('.mobile-menu').classList.toggle('open')" aria-label="Menu">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
     </div>
   </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu">
+    <a href="#capabilities" onclick="document.querySelector('.mobile-menu').classList.remove('open')">Capabilities</a>
+    <a href="#work" onclick="document.querySelector('.mobile-menu').classList.remove('open')">Work</a>
+    <a href="#approach" onclick="document.querySelector('.mobile-menu').classList.remove('open')">Approach</a>
+    <a href="#about" onclick="document.querySelector('.mobile-menu').classList.remove('open')">About</a>
+    <a href="#contact" class="cta-mobile" onclick="document.querySelector('.mobile-menu').classList.remove('open')">Get Started</a>
+  </div>
 
   <!-- Hero -->
   <section class="hero" id="top">
@@ -593,11 +871,11 @@
 
   <div class="divider"></div>
 
-  <!-- Services -->
-  <section id="services" style="padding: 160px 0 0 0;">
+  <!-- Capabilities -->
+  <section id="capabilities" style="padding: 160px 0 0 0;">
     <div class="section-content">
       <div class="reveal" style="text-align: center; margin-bottom: 64px;">
-        <p class="case-label">What We Do</p>
+        <p class="case-label">What We Can Build</p>
         <h2 style="font-size: clamp(36px, 6vw, 56px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 16px;">Everything you need<br>to stand out.</h2>
         <p style="font-size: 19px; color: var(--text-secondary); font-weight: 300; max-width: 500px; margin: 0 auto;">From your first website to a full brand overhaul.</p>
       </div>
@@ -618,17 +896,17 @@
         </div>
         <div class="service-card">
           <div class="service-icon">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
           </div>
-          <h3>Business Operations</h3>
-          <p>Booking systems, forms, payments, and automation that saves you hours every week.</p>
+          <h3>Technical Setup</h3>
+          <p>Domain, hosting, deployment, SSL — we handle the stuff most people don't want to think about.</p>
         </div>
         <div class="service-card">
           <div class="service-icon">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
           </div>
-          <h3>Competitive Research</h3>
-          <p>Understand your market, identify opportunities, and position ahead of competitors.</p>
+          <h3>SEO & Performance</h3>
+          <p>Fast loads, proper meta tags, clean code. Your site works for search engines too.</p>
         </div>
       </div>
     </div>
@@ -641,33 +919,39 @@
     <div class="section-content">
       <div class="case-study-inner reveal">
         <div class="case-study-image">
-          <img src="images/bouquet-custom.jpg" alt="Ivy & Rose Floral Co. — Handcrafted bouquet">
+          <div class="browser-frame">
+            <div class="browser-dot"></div>
+            <div class="browser-dot"></div>
+            <div class="browser-dot"></div>
+            <div class="browser-bar">ivyrosefloral.co</div>
+          </div>
+          <img src="images/bouquet-custom.jpg" alt="Ivy & Rose Floral Co. website showcase" loading="lazy">
         </div>
         <div>
-          <p class="case-label">Featured Work</p>
+          <p class="case-label">Our Work</p>
           <h3>Ivy & Rose<br>Floral Co.</h3>
-          <p class="case-desc">A complete digital presence for a growing floral business — elegant gallery, custom order system, and a seasonal campaign that drove record sales.</p>
+          <p class="case-desc">A custom website for a local floral business — from brand concept to a live, order-taking site. Mobile-first design, built to showcase the work and make ordering effortless.</p>
           <ul class="case-features">
             <li>
               <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              Photo gallery with lightbox
+              Custom design — no templates
             </li>
             <li>
               <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              Custom order form
+              Mobile-responsive across all devices
             </li>
             <li>
               <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              Mother's Day campaign page
+              Online ordering system
             </li>
             <li>
               <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              Mobile-optimized, fast loading
+              Deployed on Vercel with SSL
             </li>
           </ul>
-          <a href="https://ivyrosefloral.netlify.app" target="_blank" class="case-link">
-            View Live Site
-            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          <a href="https://ivyrosefloral.co" target="_blank" rel="noopener" class="case-link">
+            Visit Site
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M17 7H7M17 7v10"/></svg>
           </a>
         </div>
       </div>
@@ -676,54 +960,29 @@
 
   <div class="divider"></div>
 
-  <!-- Stats -->
-  <section style="padding: 160px 0 0 0;">
-    <div class="section-content">
-      <div class="stats-row reveal">
-        <div class="stat-card">
-          <div class="stat-number">100%</div>
-          <div class="stat-label">Custom Design</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">48h</div>
-          <div class="stat-label">Turnaround</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">1:1</div>
-          <div class="stat-label">Collaboration</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">∞</div>
-          <div class="stat-label">Revisions</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- Process -->
-  <section id="process" style="padding: 160px 0 0 0;">
+  <!-- Approach -->
+  <section id="approach" style="padding: 160px 0 0 0;">
     <div class="section-content">
       <div class="reveal" style="text-align: center; margin-bottom: 64px;">
-        <p class="case-label">How It Works</p>
-        <h2 style="font-size: clamp(36px, 6vw, 56px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1;">Three steps.<br>That's it.</h2>
+        <p class="case-label">How We Work</p>
+        <h2 style="font-size: clamp(36px, 6vw, 56px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 16px;">Simple process.<br>Real results.</h2>
+        <p style="font-size: 19px; color: var(--text-secondary); font-weight: 300; max-width: 500px; margin: 0 auto;">No jargon. No surprises. Just clear steps from idea to launch.</p>
       </div>
-      <div class="process-steps reveal">
-        <div class="process-step">
-          <div class="step-number">01</div>
-          <h3>Discover</h3>
-          <p>We learn your business, your goals, and your audience. No assumptions — just questions and listening.</p>
+      <div class="approach-grid reveal">
+        <div class="approach-step">
+          <div class="step-number">1</div>
+          <h3>Listen</h3>
+          <p>We learn your business, your customers, and what you actually need — not what some agency thinks you should buy.</p>
         </div>
-        <div class="process-step">
-          <div class="step-number">02</div>
+        <div class="approach-step">
+          <div class="step-number">2</div>
           <h3>Design</h3>
-          <p>Custom design built around your brand. You see every iteration. Nothing ships without your sign-off.</p>
+          <p>We build your site from scratch. You see it as it takes shape, not after. Feedback happens in real time.</p>
         </div>
-        <div class="process-step">
-          <div class="step-number">03</div>
-          <h3>Deliver</h3>
-          <p>Launch, test, and iterate. Your site goes live fast, and we stick around to make sure it performs.</p>
+        <div class="approach-step">
+          <div class="step-number">3</div>
+          <h3>Ship</h3>
+          <p>Launch. Fix. Improve. Your site goes live fast, and we keep making it better based on real data.</p>
         </div>
       </div>
     </div>
@@ -731,15 +990,50 @@
 
   <div class="divider"></div>
 
-  <!-- CTA -->
+  <!-- About -->
+  <section id="about" class="about-section">
+    <div class="section-content">
+      <div class="about-inner reveal">
+        <div style="text-align: center;">
+          <div class="about-emoji">💡</div>
+        </div>
+        <div class="about-text">
+          <p class="case-label">Who We Are</p>
+          <h2>Small studio.<br>Big standards.</h2>
+          <p>Made by Lumi is a small web design studio. We're not a 50-person agency with overhead to pass along to you. We're the people who actually build your site — from first sketch to final deploy.</p>
+          <p>We work with small businesses because that's where we come from. We know what it's like to need a professional presence without a professional-sized budget.</p>
+          <ul class="about-values">
+            <li><span class="value-dot"></span> Custom work — every site is built from scratch</li>
+            <li><span class="value-dot"></span> Honest timelines — we say what we mean</li>
+            <li><span class="value-dot"></span> You own everything — your site, your code, your domain</li>
+            <li><span class="value-dot"></span> No lock-in — deploy anywhere, we help you leave if you want</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Contact -->
   <section id="contact" class="cta-section">
     <div class="cta-glow"></div>
     <div class="section-content">
       <div class="reveal">
-        <p class="case-label" style="margin-bottom: 20px;">Ready?</p>
-        <h2>Let's build<br>something great.</h2>
-        <p>Tell us about your project. We'll get back to you within 24 hours.</p>
-        <a href="mailto:hello@madebylumi.com" class="btn-primary">Start a Project</a>
+        <h2>Let's build<br>something.</h2>
+        <p>Got a project? Even just an idea? We'd rather talk early and figure out if we're the right fit than waste your time.</p>
+        <div class="cta-methods">
+          <a href="mailto:hello@madebylumi.com" class="cta-method">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            <span class="method-label">Email Us</span>
+            <span class="method-detail">hello@madebylumi.com</span>
+          </a>
+          <a href="https://x.com/madebylumi" target="_blank" rel="noopener" class="cta-method">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            <span class="method-label">DM on X</span>
+            <span class="method-detail">@madebylumi</span>
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -747,15 +1041,41 @@
   <!-- Footer -->
   <footer>
     <div class="footer-inner">
-      <div class="footer-text">© 2026 Made by Lumi. Ohio-based, working everywhere.</div>
-      <div class="footer-links">
-        <a href="mailto:hello@madebylumi.com">Email</a>
-        <a href="https://twitter.com/madebylumi" target="_blank">X</a>
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h4>Made by Lumi</h4>
+          <p>Custom websites for small businesses. Built with care, shipped with confidence.</p>
+        </div>
+        <div class="footer-links-group">
+          <div class="footer-col">
+            <h5>Studio</h5>
+            <a href="#capabilities">Capabilities</a>
+            <a href="#work">Work</a>
+            <a href="#approach">Approach</a>
+            <a href="#about">About</a>
+          </div>
+          <div class="footer-col">
+            <h5>Connect</h5>
+            <a href="mailto:hello@madebylumi.com">Email</a>
+            <a href="https://x.com/madebylumi" target="_blank" rel="noopener">X / Twitter</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">&copy; 2026 Made by Lumi. All rights reserved.</span>
+        <div class="footer-social">
+          <a href="https://x.com/madebylumi" target="_blank" rel="noopener" aria-label="X / Twitter">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="mailto:hello@madebylumi.com" aria-label="Email">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </a>
+        </div>
       </div>
     </div>
   </footer>
 
-  <!-- Scroll reveal -->
+  <!-- Scroll Reveal -->
   <script>
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -764,10 +1084,9 @@
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   </script>
-
 </body>
 </html>
