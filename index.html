@@ -948,6 +948,8 @@
       .hero-ctas { flex-direction: column; align-items: center; }
 
     @media (max-width: 480px) {
+      .contact-fields { grid-template-columns: 1fr !important; }
+    }
   </style>
 </head>
 <body>
@@ -1352,16 +1354,41 @@
   <section id="contact" class="cta-section">
     <div class="cta-glow"></div>
     <div class="section-content">
-      <div class="reveal">
+      <div class="reveal" style="max-width: 640px; margin: 0 auto;">
         <h2>Let's build<br>something.</h2>
-        <p>Got a project? Even just an idea? We'd rather talk early and figure out if we're the right fit than waste your time.</p>
-          <a href="mailto:lumi.nelloms@gmail.com" class="btn-primary" style="margin-top: 16px;">
+        <p style="margin-bottom: 32px;">Got a project? Even just an idea? We'd rather talk early and figure out if we're the right fit than waste your time.</p>
+        <form id="contactForm" novalidate style="display: grid; gap: 18px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;" class="contact-fields">
+            <label style="display: block;">
+              <span style="display: block; font-size: 13px; font-weight: 500; color: var(--text-secondary); margin-bottom: 6px;">Name</span>
+              <input type="text" name="name" required placeholder="Your name" style="width: 100%; padding: 12px 16px; background: var(--bg-secondary); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; color: var(--text); font-size: 15px; font-family: inherit; outline: none; transition: border-color 0.3s;" onfocus="this.style.borderColor='rgba(139,0,0,0.5)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'">
+            </label>
+            <label style="display: block;">
+              <span style="display: block; font-size: 13px; font-weight: 500; color: var(--text-secondary); margin-bottom: 6px;">Email</span>
+              <input type="email" name="email" required placeholder="you@example.com" style="width: 100%; padding: 12px 16px; background: var(--bg-secondary); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; color: var(--text); font-size: 15px; font-family: inherit; outline: none; transition: border-color 0.3s;" onfocus="this.style.borderColor='rgba(139,0,0,0.5)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'">
+            </label>
+          </div>
+          <label style="display: block;">
+            <span style="display: block; font-size: 13px; font-weight: 500; color: var(--text-secondary); margin-bottom: 6px;">What kind of project?</span>
+            <select name="type" style="width: 100%; padding: 12px 16px; background: var(--bg-secondary); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; color: var(--text); font-size: 15px; font-family: inherit; outline: none; transition: border-color 0.3s; appearance: none; cursor: pointer;" onfocus="this.style.borderColor='rgba(139,0,0,0.5)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'">
+              <option value="" disabled selected style="color: var(--text-secondary);">Select one...</option>
+              <option value="website">New website</option>
+              <option value="redesign">Site redesign</option>
+              <option value="landing">Landing page</option>
+              <option value="other">Something else</option>
+            </select>
+          </label>
+          <label style="display: block;">
+            <span style="display: block; font-size: 13px; font-weight: 500; color: var(--text-secondary); margin-bottom: 6px;">Tell us about it</span>
+            <textarea name="message" required rows="4" placeholder="What do you need built? Timeline, budget range, any details help." style="width: 100%; padding: 12px 16px; background: var(--bg-secondary); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; color: var(--text); font-size: 15px; font-family: inherit; outline: none; transition: border-color 0.3s; resize: vertical;" onfocus="this.style.borderColor='rgba(139,0,0,0.5)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'"></textarea>
+          </label>
+          <p id="formMsg" style="display: none; border-radius: 12px; padding: 12px 16px; font-size: 14px; font-weight: 500;"></p>
+          <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:20px;height:20px"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-            Email Us
-          </a>
-              <div style="flex: 1; min-width: 220px;">
-                <label for="contact-name" style="display: block; font-size: 13px; font-weight: 500; color: var(--text-secondary); margin-bottom: 6px;">Name</label>
-                <input type="text" id="contact-name" name="name" required placeholder="Your name" style="width: 100%; padding: 12px 16px; background: var(--bg-secondary); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; color: var(--text); font-size: 15px; font-family: inherit; outline: none; transition: border-color 0.3s;" onfocus="this.style.borderColor='rgba(139,0,0,0.5)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'">
+            Send Inquiry
+          </button>
+          <p style="font-size: 13px; color: var(--text-secondary); text-align: center; margin-top: 4px;">Or email directly: <a href="mailto:lumi.nelloms@gmail.com" style="color: #e8a0a0; text-decoration: underline;">lumi.nelloms@gmail.com</a></p>
+        </form>
       </div>
     </div>
   </section>
@@ -1414,6 +1441,32 @@
     }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Contact form handler
+    document.getElementById('contactForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const form = e.currentTarget;
+      const msg = document.getElementById('formMsg');
+      let valid = true;
+      [...form.elements].forEach(el => {
+        if (!el.willValidate) return;
+        const ok = el.checkValidity();
+        el.style.borderColor = ok ? '' : 'rgba(139,0,0,0.8)';
+        if (!ok) valid = false;
+      });
+      msg.style.display = 'block';
+      if (!valid) {
+        msg.textContent = 'Please fill out the highlighted fields so we can get back to you.';
+        msg.style.background = 'rgba(139,0,0,0.15)';
+        msg.style.color = 'var(--text)';
+        form.reportValidity();
+        return;
+      }
+      msg.textContent = 'Thanks — we\'ll be in touch within 24 hours.';
+      msg.style.background = 'rgba(0,120,0,0.15)';
+      msg.style.color = '#8fdf8f';
+      form.reset();
+    });
   </script>
 </body>
 </html>
