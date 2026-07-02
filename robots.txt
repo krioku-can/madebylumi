@@ -1,0 +1,5 @@
+# madebylumi.com - robots.txt
+User-agent: *
+Allow: /
+
+Sitemap: https://madebylumi.com/sitemap.xml
