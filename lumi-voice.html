@@ -6,170 +6,157 @@
   <title>Lumi Voice — AI Receptionist | Made by Lumi</title>
   <meta name="description" content="24/7 AI receptionist. Answers every call. Emails you the message. From $29/mo.">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            dark: '#0a0a0a',
+            'dark-secondary': '#1a1a1a',
+            red: { DEFAULT: '#8B0000', bright: '#DC143C' },
+            'gray-custom': { DEFAULT: '#b0b0b0' }
+          }
+        }
+      }
+    }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <style type="text/tailwindcss">
+    @layer base {
+      html { scroll-behavior: smooth; }
+      body, h1, h2, h3, h4 { font-family: 'Inter', sans-serif; }
+    }
+  </style>
+  <style>
+    .card-hover { transition: all .3s ease; }
+    .card-hover:hover { border-color: rgba(139,0,0,.5); }
+    .red-glow { box-shadow: 0 0 20px rgba(139,0,0,.3); }
+  </style>
 </head>
-<body>
-  <nav>
-    <div class="nav-inner">
-      <a href="index.html" class="logo">Made by Lumi</a>
-      <div class="links">
-        <a href="offerings.html">Offerings</a>
-        <a href="index.html#work">Work</a>
-        <a href="lumi-voice.html">Lumi Voice</a>
-        <a href="index.html#contact" class="cta-nav">Get Started</a>
+<body class="bg-dark text-white antialiased">
+  <nav class="fixed top-0 w-full z-50 bg-dark/90 backdrop-blur-md border-b border-gray-800/50">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="index.html" class="text-2xl font-bold text-white">Made by Lumi</a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="index.html#about" class="text-sm font-medium text-gray-custom hover:text-white">About</a>
+        <a href="offerings.html" class="text-sm font-medium text-gray-custom hover:text-white">Offerings</a>
+        <a href="lumi-voice.html" class="text-sm font-medium text-white">Lumi Voice</a>
+        <a href="index.html#work" class="text-sm font-medium text-gray-custom hover:text-white">Work</a>
+        <a href="index.html#contact" class="text-sm font-medium px-5 py-2 bg-red text-white rounded-full hover:bg-red-bright red-glow">Contact</a>
       </div>
-      <button class="menu-btn" onclick="document.querySelector('.mobile-menu').classList.toggle('open')" aria-label="Menu">
-        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <button id="mobile-menu-btn" class="md:hidden text-white" type="button">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
     </div>
+    <div id="mobile-menu" class="hidden md:hidden bg-dark border-t border-gray-800/50 px-6 py-4 space-y-3">
+      <a href="index.html#about" class="block text-sm text-gray-custom">About</a>
+      <a href="offerings.html" class="block text-sm text-gray-custom">Offerings</a>
+      <a href="lumi-voice.html" class="block text-sm text-white">Lumi Voice</a>
+      <a href="index.html#work" class="block text-sm text-gray-custom">Work</a>
+      <a href="index.html#contact" class="block text-sm text-red">Contact</a>
+    </div>
   </nav>
-  <div class="mobile-menu">
-    <a href="offerings.html" onclick="this.parentElement.classList.remove('open')">Offerings</a>
-    <a href="index.html#work" onclick="this.parentElement.classList.remove('open')">Work</a>
-    <a href="lumi-voice.html" onclick="this.parentElement.classList.remove('open')">Lumi Voice</a>
-    <a href="index.html#contact" class="cta-mobile" onclick="this.parentElement.classList.remove('open')">Get Started</a>
-  </div>
 
-  <header class="page-hero reveal">
-    <p class="case-label">Lumi Voice</p>
-    <h1>Your phone,<br>answered. Every time.</h1>
-    <p>A 24/7 AI receptionist with a natural voice. It greets callers, takes a clear message, and emails you the summary in seconds. No voicemail black hole.</p>
-    <div class="hero-ctas" style="margin-top:24px;">
-      <a class="btn-primary" href="index.html#contact">Get Lumi Voice</a>
-      <a class="btn-secondary" href="#pricing">See plans</a>
+  <header class="pt-32 pb-16 px-6 max-w-4xl mx-auto">
+    <p class="text-red text-sm tracking-[0.2em] uppercase mb-4">Lumi Voice</p>
+    <h1 class="text-4xl md:text-6xl font-bold mb-4">Your phone,<br>answered. Every time.</h1>
+    <p class="text-gray-custom text-lg mb-8">A 24/7 AI receptionist with a natural voice. It greets callers, takes a clear message, and emails you the summary. No voicemail black hole.</p>
+    <div class="flex flex-col sm:flex-row gap-4">
+      <a href="index.html#contact" class="px-8 py-4 bg-red text-white font-semibold rounded-full hover:bg-red-bright red-glow text-center">Get Lumi Voice</a>
+      <a href="#pricing" class="px-8 py-4 border border-red/40 text-white font-semibold rounded-full hover:bg-red/10 text-center">See plans</a>
     </div>
   </header>
 
-  <div class="divider"></div>
-
-  <section class="offer-block">
-    <div class="section-content reveal">
-      <h2 class="section-h2" style="text-align:center;">What you get</h2>
-      <div class="pillars-grid" style="margin-top:28px;">
-        <div class="pillar-card" style="cursor:default;">
-          <h3>Natural voice</h3>
-          <p>Realtime speech that sounds like a receptionist — not a robotic phone tree.</p>
-        </div>
-        <div class="pillar-card" style="cursor:default;">
-          <h3>Email the message</h3>
-          <p>Every call summary lands in your inbox: who called, why, callback, urgency.</p>
-        </div>
-        <div class="pillar-card" style="cursor:default;">
-          <h3>Always on</h3>
-          <p>24/7 coverage. After hours, lunch rush, weekends — same quality every time.</p>
-        </div>
+  <section class="py-16 bg-dark-secondary">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">What you get</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-dark p-8 rounded-2xl border border-gray-800"><h3 class="text-xl font-semibold mb-2">Natural voice</h3><p class="text-gray-custom">Realtime speech that sounds like a receptionist — not a robotic phone tree.</p></div>
+        <div class="bg-dark p-8 rounded-2xl border border-gray-800"><h3 class="text-xl font-semibold mb-2">Email the message</h3><p class="text-gray-custom">Every call summary lands in your inbox: who called, why, callback, urgency.</p></div>
+        <div class="bg-dark p-8 rounded-2xl border border-gray-800"><h3 class="text-xl font-semibold mb-2">Always on</h3><p class="text-gray-custom">24/7 coverage. After hours, lunch rush, weekends — same quality every time.</p></div>
       </div>
     </div>
   </section>
 
-  <div class="divider" style="margin-top:40px;"></div>
-
-  <section class="offer-block" id="pricing">
-    <div class="section-content reveal">
-      <h2 class="section-h2" style="text-align:center;">Packages</h2>
-      <p class="section-sub">Simple monthly plans. Minutes included. Email delivery of every call summary.</p>
-      <div class="price-row">
-        <div class="price-card">
-          <h3>Lumi Line</h3>
-          <div class="amount">$29<span>/mo</span></div>
-          <div class="meta">200 minutes · $0.13/min overage</div>
-          <ul>
-            <li>1 phone number</li>
-            <li>24/7 AI receptionist</li>
-            <li>Custom greeting + intake</li>
-            <li>Email call summaries</li>
+  <section id="pricing" class="py-16">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-2">Packages</h2>
+      <p class="text-gray-custom text-center mb-10">Simple monthly plans. Minutes included. Email delivery of every call summary.</p>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-dark p-8 rounded-2xl border border-gray-800 card-hover">
+          <h3 class="text-xl font-semibold mb-2">Lumi Line</h3>
+          <p class="text-3xl font-bold mb-1">$29/mo</p>
+          <p class="text-gray-custom text-sm mb-4">200 minutes · $0.13/min overage</p>
+          <ul class="text-gray-custom text-sm space-y-1">
+            <li>· 1 phone number</li>
+            <li>· 24/7 AI receptionist</li>
+            <li>· Custom greeting + intake</li>
+            <li>· Email call summaries</li>
           </ul>
         </div>
-        <div class="price-card hot">
-          <span class="badge">Most choose</span>
-          <h3>Lumi Desk</h3>
-          <div class="amount">$49<span>/mo</span></div>
-          <div class="meta">350 minutes · $0.13/min overage</div>
-          <ul>
-            <li>Everything in Line</li>
-            <li>Optional email CC list</li>
-            <li>Weekly call digest</li>
-            <li>Faster prompt tweaks</li>
+        <div class="bg-dark p-8 rounded-2xl border border-red/40 card-hover">
+          <p class="text-red text-xs uppercase tracking-widest mb-2">Most choose</p>
+          <h3 class="text-xl font-semibold mb-2">Lumi Desk</h3>
+          <p class="text-3xl font-bold mb-1">$49/mo</p>
+          <p class="text-gray-custom text-sm mb-4">350 minutes · $0.13/min overage</p>
+          <ul class="text-gray-custom text-sm space-y-1">
+            <li>· Everything in Line</li>
+            <li>· Optional email CC list</li>
+            <li>· Weekly call digest</li>
+            <li>· Faster prompt tweaks</li>
           </ul>
         </div>
-        <div class="price-card">
-          <h3>Lumi Front Desk</h3>
-          <div class="amount">$79<span>/mo</span></div>
-          <div class="meta">600 minutes · $0.13/min overage</div>
-          <ul>
-            <li>Everything in Desk</li>
-            <li>2 numbers or routing</li>
-            <li>VIP / client rules</li>
-            <li>Priority support</li>
+        <div class="bg-dark p-8 rounded-2xl border border-gray-800 card-hover">
+          <h3 class="text-xl font-semibold mb-2">Lumi Front Desk</h3>
+          <p class="text-3xl font-bold mb-1">$79/mo</p>
+          <p class="text-gray-custom text-sm mb-4">600 minutes · $0.13/min overage</p>
+          <ul class="text-gray-custom text-sm space-y-1">
+            <li>· Everything in Desk</li>
+            <li>· 2 numbers or routing</li>
+            <li>· VIP / client rules</li>
+            <li>· Priority support</li>
           </ul>
         </div>
       </div>
-      <p class="center-note">A fraction of a traditional answering service — without the voicemail black hole.</p>
+      <p class="text-gray-custom text-sm text-center mt-8">A fraction of a traditional answering service — without the voicemail black hole.</p>
     </div>
   </section>
 
-  <div class="divider"></div>
-
-  <section class="offer-block">
-    <div class="section-content reveal">
-      <h2 class="section-h2" style="text-align:center;">How it works</h2>
-      <div class="approach-grid" style="margin-top:28px;">
-        <div class="approach-step">
-          <div class="step-number">1</div>
-          <h3>We set up your line</h3>
-          <p>Number, greeting, intake questions, and your notification email.</p>
-        </div>
-        <div class="approach-step">
-          <div class="step-number">2</div>
-          <h3>Callers talk to Lumi</h3>
-          <p>Natural conversation. Name, reason, callback. No “press 1” maze.</p>
-        </div>
-        <div class="approach-step">
-          <div class="step-number">3</div>
-          <h3>You get the email</h3>
-          <p>Clear summary in your inbox. Call back when you’re ready — with context.</p>
-        </div>
+  <section class="py-16 bg-dark-secondary">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">How it works</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-dark p-8 rounded-2xl border border-gray-800"><p class="text-red font-bold mb-2">1</p><h3 class="text-xl font-semibold mb-2">We set up your line</h3><p class="text-gray-custom">Number, greeting, intake questions, and your notification email.</p></div>
+        <div class="bg-dark p-8 rounded-2xl border border-gray-800"><p class="text-red font-bold mb-2">2</p><h3 class="text-xl font-semibold mb-2">Callers talk to Lumi</h3><p class="text-gray-custom">Natural conversation. Name, reason, callback. No “press 1” maze.</p></div>
+        <div class="bg-dark p-8 rounded-2xl border border-gray-800"><p class="text-red font-bold mb-2">3</p><h3 class="text-xl font-semibold mb-2">You get the email</h3><p class="text-gray-custom">Clear summary in your inbox. Call back when you’re ready — with context.</p></div>
       </div>
-      <p class="center-note">Want Voice with a new site? See the <a href="offerings.html#presence">Presence bundle</a>.</p>
+      <p class="text-gray-custom text-sm text-center mt-8">Want Voice with a new site? See the <a class="text-red-bright" href="offerings.html#presence">Presence bundle</a>.</p>
     </div>
   </section>
 
-  <section class="cta-section">
-    <div class="section-content" style="text-align:center;">
-      <h2 class="section-h2">Ready when you are</h2>
-      <p class="section-sub" style="margin-bottom:24px;">Tell us your business name, what to ask callers, and which email should get the messages.</p>
-      <a class="btn-primary" href="index.html#contact">Start with Lumi Voice</a>
-    </div>
+  <section class="py-20 text-center px-6">
+    <h2 class="text-3xl md:text-4xl font-bold mb-4">Ready when you are</h2>
+    <p class="text-gray-custom mb-8">Tell us your business name, what to ask callers, and which email should get the messages.</p>
+    <a href="index.html#contact" class="px-8 py-4 bg-red text-white font-semibold rounded-full hover:bg-red-bright red-glow inline-block">Start with Lumi Voice</a>
   </section>
 
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-top">
-        <div class="footer-brand">
-          <h4>Made by Lumi</h4>
-          <p>Websites and AI receptionist for businesses.</p>
-        </div>
-        <div class="footer-links-group">
-          <div class="footer-col">
-            <h5>Explore</h5>
-            <a href="index.html">Home</a>
-            <a href="offerings.html">Offerings</a>
-            <a href="index.html#contact">Contact</a>
-          </div>
-          <div class="footer-col">
-            <h5>Connect</h5>
-            <a href="mailto:chris@madebylumi.com">chris@madebylumi.com</a>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <span class="footer-copy">© 2026 Made by Lumi, LLC. Ohio · Working with businesses everywhere.</span>
+  <footer class="py-8 bg-dark border-t border-gray-800">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="text-gray-custom text-sm">© 2026 Made by Lumi, LLC. All rights reserved.</p>
+      <div class="flex items-center gap-6">
+        <a href="index.html" class="text-gray-custom text-sm hover:text-white">Home</a>
+        <a href="offerings.html" class="text-gray-custom text-sm hover:text-white">Offerings</a>
+        <a href="index.html#contact" class="text-gray-custom text-sm hover:text-white">Contact</a>
       </div>
     </div>
   </footer>
-  <script src="site.js"></script>
+  <script>
+    document.getElementById('mobile-menu-btn').addEventListener('click', function () {
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+    });
+  </script>
 </body>
 </html>

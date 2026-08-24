@@ -32,12 +32,11 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style type="text/tailwindcss">
     @layer base {
       html { scroll-behavior: smooth; }
-      body { font-family: 'Inter', sans-serif; }
-      h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+      body, h1, h2, h3, h4 { font-family: 'Inter', sans-serif; }
     }
   </style>
   <style>
@@ -84,7 +83,7 @@
   <!-- Navigation -->
   <nav class="fixed top-0 w-full z-50 bg-dark/90 backdrop-blur-md border-b border-gray-800/50">
     <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="#" class="text-2xl font-bold text-white" style="font-family: 'Playfair Display', serif;">Made by Lumi</a>
+      <a href="index.html" class="text-2xl font-bold text-white">Made by Lumi</a>
       <div class="hidden md:flex items-center gap-8">
         <a href="#about" class="text-sm font-medium text-gray-custom hover:text-white transition-colors">About</a>
         <a href="offerings.html" class="text-sm font-medium text-gray-custom hover:text-white transition-colors">Offerings</a>
@@ -138,7 +137,7 @@
   <!-- About Section -->
   <section id="about" class="py-24 bg-dark">
     <div class="max-w-6xl mx-auto px-6">
-      <div class="grid md:grid-cols-2 gap-16 items-center">
+      <div class="max-w-3xl reveal">
         <div class="reveal">
           <p class="text-red text-sm tracking-[0.2em] uppercase mb-4 font-medium">About Us</p>
           <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Websites and Lumi Voice, built right</h2>
@@ -151,18 +150,6 @@
             <div>
               <p class="font-semibold text-white">Ohio-Based</p>
               <p class="text-sm text-gray-custom">Working with businesses everywhere</p>
-            </div>
-          </div>
-        </div>
-        <div class="reveal bg-gradient-to-br from-dark-secondary to-dark-tertiary rounded-2xl p-10 text-white border border-gray-800">
-          <div class="grid grid-cols-2 gap-8">
-            <div class="text-center">
-              <p class="text-4xl font-bold text-red mb-2">100%</p>
-              <p class="text-gray-custom text-sm">Custom Design</p>
-            </div>
-            <div class="text-center">
-              <p class="text-4xl font-bold text-red mb-2">1:1</p>
-              <p class="text-gray-custom text-sm">Collaboration</p>
             </div>
           </div>
         </div>
@@ -202,9 +189,9 @@
   <section id="work" class="py-24 bg-dark">
     <div class="max-w-6xl mx-auto px-6">
       <div class="text-center mb-16 reveal">
-        <p class="text-red text-sm tracking-[0.2em] uppercase mb-4 font-medium">Featured Work</p>
-        <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">Case Study: Ivy & Rose Floral Co.</h2>
-        <p class="text-gray-custom text-lg max-w-2xl mx-auto">A complete digital presence for a growing floral business.</p>
+        <p class="text-red text-sm tracking-[0.2em] uppercase mb-4 font-medium">Work</p>
+        <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">Real client sites</h2>
+        <p class="text-gray-custom text-lg max-w-2xl mx-auto">What we actually shipped. No invented results.</p>
       </div>
       <div class="bg-gradient-to-br from-dark-secondary to-dark-tertiary rounded-3xl overflow-hidden shadow-2xl border border-gray-800 reveal">
         <div class="grid md:grid-cols-2">
@@ -245,6 +232,24 @@
           <div class="bg-dark-tertiary/50 p-10 md:p-14 flex items-center justify-center border-l border-gray-800">
             <img src="images/bouquet-custom.jpg" alt="Ivy & Rose Floral Co. — Mother's Day bouquet" class="w-full max-w-sm rounded-xl shadow-lg border border-gray-800 object-cover" style="aspect-ratio: 2/3;">
           </div>
+        </div>
+      </div>
+      <div class="mt-8 bg-gradient-to-br from-dark-secondary to-dark-tertiary rounded-3xl overflow-hidden shadow-2xl border border-gray-800 reveal">
+        <div class="p-10 md:p-14 text-white">
+          <span class="text-sm font-medium text-gray-custom">Training · booking</span>
+          <h3 class="text-3xl font-bold mb-4 mt-3">EyeWill Training</h3>
+          <p class="text-gray-custom leading-relaxed mb-6">Personal training booking site with Cal.com. Live.</p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center gap-3">
+              <svg class="w-5 h-5 text-red" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span class="text-gray-custom">Booking site</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-5 h-5 text-red" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span class="text-gray-custom">Cal.com sessions</span>
+            </li>
+          </ul>
+          <a href="https://trainer-booking-mvp.vercel.app" class="inline-block px-5 py-2 border border-red/40 text-white rounded-full hover:bg-red/10" target="_blank" rel="noopener">Open live site</a>
         </div>
       </div>
     </div>
