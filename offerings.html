@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offerings & Pricing — Made by Lumi</title>
+  <meta name="description" content="Websites $750–$1,000. Lumi Voice from $29/mo. Presence bundle $899.">
+  <link rel="icon" type="image/svg+xml" href="https://madebylumi.com/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="logo">Made by Lumi</a>
+      <div class="links">
+        <a href="offerings.html">Offerings</a>
+        <a href="index.html#work">Work</a>
+        <a href="lumi-voice.html">Lumi Voice</a>
+        <a href="index.html#contact" class="cta-nav">Get Started</a>
+      </div>
+      <button class="menu-btn" onclick="document.querySelector('.mobile-menu').classList.toggle('open')" aria-label="Menu">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </nav>
+  <div class="mobile-menu">
+    <a href="offerings.html" onclick="this.parentElement.classList.remove('open')">Offerings</a>
+    <a href="index.html#work" onclick="this.parentElement.classList.remove('open')">Work</a>
+    <a href="lumi-voice.html" onclick="this.parentElement.classList.remove('open')">Lumi Voice</a>
+    <a href="index.html#contact" class="cta-mobile" onclick="this.parentElement.classList.remove('open')">Get Started</a>
+  </div>
+
+  <header class="page-hero reveal">
+    <p class="case-label">Offerings</p>
+    <h1>Clear packages.<br>No mystery menu.</h1>
+    <p>Custom websites and Lumi Voice — plus one bundle when you want both.</p>
+  </header>
+
+  <div class="divider"></div>
+
+  <section class="offer-block" id="websites">
+    <div class="section-content reveal">
+      <p class="case-label">01 · Presence</p>
+      <h2 class="section-h2">Custom websites</h2>
+      <p class="section-sub" style="margin:0;">Mobile-first. Built for your business — not a template farm.</p>
+      <div class="price-row">
+        <div class="price-card">
+          <h3>Site Launch</h3>
+          <div class="amount">$750</div>
+          <div class="meta">Default website project</div>
+          <ul>
+            <li>Custom multi-section site</li>
+            <li>Mobile-first design</li>
+            <li>Contact path that works</li>
+          </ul>
+        </div>
+        <div class="price-card hot">
+          <span class="badge">Full build</span>
+          <h3>Site + Infrastructure</h3>
+          <div class="amount">$1,000</div>
+          <div class="meta">Site + business plumbing</div>
+          <ul>
+            <li>Everything in Launch</li>
+            <li>Domain / email help</li>
+            <li>Booking + handoff docs</li>
+          </ul>
+        </div>
+        <div class="price-card">
+          <h3>Payment</h3>
+          <div class="amount" style="font-size:22px;">50 / 50</div>
+          <div class="meta">Deposit · balance on launch</div>
+          <ul>
+            <li>Stripe checkout</li>
+            <li>Clear scope before build</li>
+            <li>Revisions inside scope</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" style="margin-top:56px;"></div>
+
+  <section class="offer-block" id="voice">
+    <div class="section-content reveal">
+      <p class="case-label">02 · Phone</p>
+      <h2 class="section-h2">Lumi Voice</h2>
+      <p class="section-sub" style="margin:0;">24/7 AI receptionist. Natural voice. Message emailed to you.</p>
+      <div class="price-row">
+        <div class="price-card">
+          <h3>Lumi Line</h3>
+          <div class="amount">$29<span>/mo</span></div>
+          <div class="meta">200 min included</div>
+          <ul>
+            <li>1 number · 24/7 answer</li>
+            <li>Email summaries</li>
+            <li>Custom greeting</li>
+          </ul>
+        </div>
+        <div class="price-card hot">
+          <span class="badge">Most choose</span>
+          <h3>Lumi Desk</h3>
+          <div class="amount">$49<span>/mo</span></div>
+          <div class="meta">350 min included</div>
+          <ul>
+            <li>Everything in Line</li>
+            <li>Weekly email digest</li>
+            <li>Faster prompt tweaks</li>
+          </ul>
+        </div>
+        <div class="price-card">
+          <h3>Lumi Front Desk</h3>
+          <div class="amount">$79<span>/mo</span></div>
+          <div class="meta">600 min included</div>
+          <ul>
+            <li>Everything in Desk</li>
+            <li>2 numbers / routing</li>
+            <li>Priority support</li>
+          </ul>
+        </div>
+      </div>
+      <p class="center-note">Overage $0.13/min · <a href="lumi-voice.html">Full Lumi Voice page →</a></p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="offer-block" id="bundles">
+    <div class="section-content reveal">
+      <p class="case-label">Bundle</p>
+      <h2 class="section-h2">Site + phone together.</h2>
+      <div class="bundle-grid" style="grid-template-columns:1fr; max-width:560px;">
+        <div class="bundle-card flagship" id="presence" style="grid-column:auto;">
+          <h3>Presence</h3>
+          <div class="amount">$899 <span>+ $49/mo</span></div>
+          <p>Look legit online and never miss the call that comes from it.</p>
+          <p class="includes">Website (Site Launch) + Lumi Voice setup (Desk) + first month Voice → then $49/mo.</p>
+        </div>
+      </div>
+      <p class="center-note"><a href="index.html#contact">Talk through fit →</a></p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h4>Made by Lumi</h4>
+          <p>Websites and AI receptionist for businesses.</p>
+        </div>
+        <div class="footer-links-group">
+          <div class="footer-col">
+            <h5>Explore</h5>
+            <a href="index.html">Home</a>
+            <a href="lumi-voice.html">Lumi Voice</a>
+            <a href="index.html#contact">Contact</a>
+          </div>
+          <div class="footer-col">
+            <h5>Connect</h5>
+            <a href="mailto:chris@madebylumi.com">chris@madebylumi.com</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2026 Made by Lumi, LLC. Ohio · Working with businesses everywhere.</span>
+      </div>
+    </div>
+  </footer>
+  <script src="site.js"></script>
+</body>
+</html>
