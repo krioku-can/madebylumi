@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>document.documentElement.className += ' js';</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Made by Lumi — Websites &amp; Lumi Voice</title>
@@ -40,12 +41,14 @@
     }
   </style>
   <style>
-    .reveal {
+    /* Reveal starts VISIBLE by default (no-JS, SEO, print, screen readers).
+       Only hidden when JS is active, so the animation never blanks content. */
+    .js .reveal {
       opacity: 0;
       transform: translateY(30px);
       transition: opacity 0.8s ease-out, transform 0.8s ease-out;
     }
-    .reveal.visible {
+    .js .reveal.visible {
       opacity: 1;
       transform: translateY(0);
     }
@@ -335,6 +338,12 @@
       });
     }, observerOptions);
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Safety net: force-reveal anything the observer missed (late-render,
+    // JS timing edge cases) so content is never stuck invisible.
+    setTimeout(() => {
+      document.querySelectorAll('.reveal:not(.visible)').forEach(el => el.classList.add('visible'));
+    }, 1500);
 
     // Mobile menu toggle
     document.getElementById('mobile-menu-btn').addEventListener('click', () => {
