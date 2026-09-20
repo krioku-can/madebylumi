@@ -1,66 +1,44 @@
-# DNS Setup for madebylumi.com
+# DNS / Domain Setup — madebylumi.com
 
-## Status
-✅ Domain registered on Namecheap
-✅ Site deployed to Vercel: https://madebylumi.vercel.app
-✅ Domain added to Vercel project
-⏳ DNS configuration needed
+**Status: COMPLETE (verified 2026-09-20).** Kept as a record of how the domain was wired up. No action outstanding.
 
-## What You Need to Do
+| Item | Status |
+|------|--------|
+| Domain registered (Namecheap) | ✅ done |
+| Site deployed to Vercel | ✅ done |
+| Domain attached to Vercel project `madebylumi` | ✅ done |
+| DNS configured | ✅ done — `https://madebylumi.com` returns 200 |
+| `www` redirect | ✅ handled by Vercel |
 
-### Option A: A Record (Recommended - Easier)
+## How it was configured (Option A — A record, the one used)
 
-1. **Log into Namecheap** → Go to Domain List → Click "Manage" next to madebylumi.com
-2. Go to **Advanced DNS** tab
-3. Find the **HOST RECORDS** section
-4. Add these records:
+Namecheap → Domain List → Manage `madebylumi.com` → **Advanced DNS**:
 
 | Type | Host | Value | TTL |
 |------|------|-------|-----|
-| A Record | @ | 76.76.21.21 | Automatic |
-| CNAME Record | www | cname.vercel-dns.com | Automatic |
+| A Record | `@` | `76.76.21.21` | Automatic |
+| CNAME Record | `www` | `cname.vercel-dns.com` | Automatic |
 
-5. Save changes
+Nameserver alternative (not used): `ns1.vercel-dns.com`, `ns2.vercel-dns.com`.
 
-### Option B: Nameservers (More Complex)
+DNS propagation takes 15–60 minutes; Vercel emails when the domain verifies.
 
-1. In Namecheap, go to **Domain** tab
-2. Find **NAMESERVERS** section
-3. Select **Custom DNS**
-4. Enter Vercel nameservers:
-   - ns1.vercel-dns.com
-   - ns2.vercel-dns.com
-5. Save changes
+## Live URLs
 
-## My Recommendation
+- **Production:** https://madebylumi.com (alias)
+- https://madebylumi.vercel.app
+- Direct deployments look like `https://madebylumi-<hash>-luminelloms-8974s-projects.vercel.app`
 
-**Use Option A (A Record)** — it's simpler and you keep control of your DNS through Namecheap.
+## Verification
 
-## Timeline
+```bash
+curl -s -o /dev/null -w '%{http_code}\n' https://madebylumi.com    # expect 200
+curl -s https://madebylumi.com | md5                               # compare to local index.html
+```
 
-- DNS changes take **15-60 minutes** to propagate
-- Vercel will automatically detect the changes
-- You'll get an email from Vercel when the domain is verified
+## If the domain ever breaks
 
-## After Setup
-
-- **madebylumi.com** → Will show your portfolio site
-- **www.madebylumi.com** → Will redirect to madebylumi.com
-
-## Current Live URLs (Before DNS)
-
-- https://madebylumi.vercel.app (working now)
-- https://madebylumi-iaejejawv-luminelloms-8974s-projects.vercel.app (direct)
-
-## Next Steps
-
-1. Add the A record in Namecheap (5 minutes)
-2. Wait for DNS to propagate (15-60 minutes)
-3. Test: Visit madebylumi.com in a browser
-4. Done!
-
----
-
-Need help? I can walk you through the Namecheap steps, or you can:
-- Namecheap support: https://www.namecheap.com/support/
-- Vercel docs: https://vercel.com/docs/concepts/projects/custom-domains
+1. Confirm the A record still points at `76.76.21.21` (Vercel's anycast IP) in Namecheap.
+2. Check the domain is still attached: `npx vercel domains ls` and `npx vercel project inspect madebylumi`.
+3. If missing, re-add under Vercel → project `madebylumi` → Settings → Domains, then follow the DNS instructions it prints.
+4. Namecheap support: https://www.namecheap.com/support/ · Vercel domains docs: https://vercel.com/docs/domains

@@ -1,0 +1,7 @@
+# Prevent internal/non-site files from ever being uploaded to the public deployment.
+# The live site needs only: index.html, offerings.html, lumi-voice.html, favicon.svg, images/
+README.md
+DNS_SETUP.md
+.vercelignore
+.gitignore
+.git/
