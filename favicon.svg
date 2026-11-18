@@ -1,5 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="6" fill="#0a0a0a"/>
-  <rect x="3" y="3" width="26" height="26" rx="4" fill="#8B0000"/>
-  <text x="16" y="22" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#ffffff">L</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-35 -125 518 518"><rect x="-35" y="-125" width="518" height="518" rx="74" fill="#0A0A0A"/><g fill="#FFFFFF"><path d="M0 0H46L96 73 147 0H260C296 0 316 25 316 57C316 75 309 88 299 95C326 107 340 129 340 155C340 191 314 223 270 223H146V173H264C278 173 286 164 286 154C286 142 276 134 264 134H213V84H249C260 84 267 77 267 68C267 57 260 50 249 50H201V161H146V80L96 142 49 82V192H0Z"/><path d="M333 73H378V196H448V239H306V227C336 211 352 185 352 155C352 132 345 113 333 99Z"/><path fill="#8B0000" d="M61 0H133L97 52Z"/></g></svg>
