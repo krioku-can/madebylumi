@@ -1,97 +1,72 @@
 # Made by Lumi — Website
 
-Source for **https://madebylumi.com** — the Made by Lumi, LLC site. Custom websites and Lumi Voice (a 24/7 AI receptionist).
+Source for **https://madebylumi.com**. Custom websites and Lumi Voice for small businesses. Chris Nelloms, Made by Lumi, LLC.
 
 **Live:** https://madebylumi.com
 **Deploy:** Vercel project `madebylumi` → production alias `madebylumi.com`
 
----
+The pages in this repo match the site that was deployed to that project. `offerings.html`, `site.js`, `styles.css`, and `images/` are leftovers from an earlier design. Nothing current links to them. `/offerings.html` redirects to `/websites.html`.
 
 ## Pages
 
 | File | Purpose |
 |------|---------|
-| `index.html` | Home — hero, about, packages, work/case studies, process, contact |
-| `offerings.html` | Full pricing catalog (websites, Lumi Voice plans, Presence bundle) |
-| `lumi-voice.html` | Lumi Voice product page (features, plans, how-it-works) |
-| `images/` | Case-study photography (florals) |
-| `favicon.svg` | Site icon |
-| `site.js`, `styles.css` | **Unused legacy** — referenced by no current page (all three pages are self-contained: Tailwind CDN + inline styles/scripts). Kept as history only. |
+| `index.html` | Home |
+| `websites.html` | Custom websites |
+| `lumi-voice.html` | Lumi Voice |
+| `our-work.html` | Ivy & Rose Floral Co. and M. Consulting |
+| `about.html` | About Chris |
+| `start-a-project.html` | Project brief form |
+| `style.css`, `app.js` | Shared styling and page behavior |
+| `assets/` | Logo and work photography |
+| `api/inquiry.mjs` | Sends a brief to chris@madebylumi.com |
 
-## Design (current, verified against the served HTML)
+## Start a Project
 
-- **Dark/red theme:** background `#0a0a0a`, primary red `#8B0000` (light `#A52A2A`, bright `#DC143C`, deep `#660000`), grays `#b0b0b0` / `#2a2a2a`
-- **Type:** Inter (weights 300–800) from Google Fonts — headings and body
-- **Styling:** Tailwind CSS via CDN with a custom `tailwind.config` theme; page-specific CSS inline
-- **Layout:** mobile-first; single column on small screens, `md:` grid breakpoints
-- **Motion:** scroll-reveal via `IntersectionObserver` plus a 1500 ms safety net that force-reveals anything the observer misses. Reveal elements start **visible** and are hidden only once JS is confirmed active (`.js .reveal`) — so no-JS, print, and SEO readers always see content
-- **Aesthetic:** sharp card corners + pill buttons, red glow accents, subtle grid and ambient blur in the hero
+Submitting the brief `POST`s JSON to `/api/inquiry`. The function checks the fields, then asks [Resend](https://resend.com) to email **chris@madebylumi.com**. The visitor’s address is the reply-to. No mail library is installed; the function uses `fetch`.
 
-> The old Navy (#1a365d) / Cream (#faf9f6) / Playfair Display description was obsolete — the site was redesigned to the dark/red system above.
+That keeps the API key on the server. This repository is public, so the key cannot live in the page or in git. A client-side form host would put a key in the HTML. Resend’s free tier works on Vercel Hobby. The from-address has to be on a domain verified in Resend, which is a one-time DNS step.
 
-## Content rules (enforced — do not regress)
+Spam controls: a hidden `hp_field` honeypot, and 5 posts per 10 minutes per IP. The limit is stored in memory on that function instance. Hobby has no shared store, so a burst spread across instances can exceed it. The honeypot still applies.
 
-This site is held to a strict sourcing standard. The following were **deliberate removals of unsupported marketing claims**; do not reintroduce them:
+### Environment variables
 
-- No "unlimited revisions" — scoped revisions only (see the Process section)
-- No "48h turnaround" claims
-- No invented statistics or puff numbers
-- Case studies describe **what was actually shipped**, never fabricated results
+Add these in **Vercel → project `madebylumi` → Settings → Environment Variables**, for **Production** and **Preview**. Do not put them in git. `RESEND_API_KEY` should be type **Secret**.
 
-Client work currently shown: **Ivy & Rose Floral Co.** (site, gallery, custom order form, campaign page) and **EyeWill Training** (booking site with Cal.com, links to the live site).
+| Name | Value |
+|------|--------|
+| `RESEND_API_KEY` | API key from the Resend dashboard |
+| `INQUIRY_FROM` | A verified sender on madebylumi.com, for example `Made by Lumi <inquiries@madebylumi.com>` |
 
-## Pricing (mirrors `offerings.html` — keep in sync)
+The recipient is fixed in code as `chris@madebylumi.com`. Resend’s shared `onboarding@resend.dev` sender only delivers to the Resend account owner, so it will not reliably reach that inbox.
 
-**Websites**
-- Site Launch — **$750** — custom multi-section site, mobile-first, working contact path
-- Site + Infrastructure — **$1,000** — adds domain/email help, booking, handoff docs
-- Payment: **50/50** via Stripe, balance on launch
+Add the variables, then deploy again. A deployment does not pick up variables that were added after it was built.
 
-**Lumi Voice** (minutes included; `$0.13/min` overage)
-- Lumi Line — **$29/mo** — 200 min
-- Lumi Desk — **$49/mo** — 350 min (most chosen)
-- Lumi Front Desk — **$79/mo** — 600 min, 2 numbers/routing
+### If the variables are missing, or Resend rejects the send
 
-**Bundle**
-- Presence — **$899 + $49/mo** — Site Launch + Lumi Voice Desk, first month included
+Nothing is emailed. The API responds with `unavailable` (503) or `send_failed` (502). The page says it didn’t send and links **chris@madebylumi.com**. The brief stays on the page and can still be downloaded. The response does not name the missing variable.
 
-## Contact
+Required fields, checked again on the server: name, email, and the brief (`message`). “I’m thinking about” and timing must be one of the options on the form.
 
-- Email: **chris@madebylumi.com**
-- Phone: **+1 (213) 314-9026** — public business line. The `tel:` hrefs in the HTML are masked; if the number changes, update both the display text and the href.
+## Content rules
 
-## Local Development
+Do not add claims the pages do not already make. In particular, do not promise a response time. Samples on the site that are fictional are labeled that way. Keep them labeled.
 
-No build step — the pages are self-contained:
+## Local check
 
 ```bash
+node --test
 python3 -m http.server 8000
-# open http://localhost:8000
 ```
 
-Opening `index.html` directly in a browser also works.
+The static server shows the page. Sending needs the function, which `node --test` covers with a mocked Resend call. There is no production credential in this repo.
 
 ## Deploy
+
+Not part of the inquiry change. When the variables above are set:
 
 ```bash
 npx vercel --prod --yes
 ```
 
-Learned the hard way:
-- There is **no committed `.vercel/` link directory** (it is gitignored). Deploys still resolve to project `madebylumi`. If Vercel returns **"Not authorized"**, retry once, then add `--scope luminelloms-8974s-projects`.
-- Vercel's static builder automatically **excludes `.env*` files** and `node_modules/`. There is no `.env` here and no page reads environment variables — keep it that way.
-- **Verify after deploying:** compare the served HTML against local `index.html` (checksum match).
-
-## Notes
-
-- `~/madebylumi-pr1` and `~/madebylumi-url-fix` (locally) are old Vercel preview projects, not the live site.
-- A stale iCloud-synced clone directory was removed on 2026-09-20: it was a zero-byte ghost (most git objects empty, `HEAD`/`config` empty — git could not read it). Its recoverable contents, including a 56KB **earlier version of `index.html`** found nowhere else, were archived locally before deletion. Prefer `git clone` into a fresh path over recreating a clone in place.
-
-## Changelog
-
-`git log` is authoritative. Recent commits:
-
-- `49b7259` fix: home scroll-reveal leaves sections invisible (JS-gated animation + safety net)
-- `6e48d6e` feat: add public contact phone
-- `5a34744` fix: one look sitewide, add EyeWill, drop puff stats
-- `ca8adbd` fix: align home to catalog and drop unsourced claims
+If Vercel returns “Not authorized”, retry once, then add `--scope luminelloms-8974s-projects`.

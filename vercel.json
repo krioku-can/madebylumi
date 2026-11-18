@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "framework": null,
+  "redirects": [
+    {
+      "source": "/offerings.html",
+      "destination": "/websites.html",
+      "permanent": true
+    }
+  ]
+}
