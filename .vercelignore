@@ -1,7 +1,9 @@
-# Prevent internal/non-site files from ever being uploaded to the public deployment.
-# The live site needs only: index.html, offerings.html, lumi-voice.html, favicon.svg, images/
+# Keep notes, tests, and git metadata off the public deployment.
+# The function in api/ and lib/inquiry.mjs must be deployed.
 README.md
 DNS_SETUP.md
 .vercelignore
 .gitignore
 .git/
+test/
+.env.example
