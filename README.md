@@ -20,6 +20,7 @@ The pages in this repo match the site that was deployed to that project. `offeri
 | `style.css`, `app.js` | Shared styling and page behavior |
 | `assets/` | Logo and work photography |
 | `api/inquiry.mjs` | Sends a brief to chris@madebylumi.com |
+| `api/forward-inquiry.mjs` | Forwards a client site's form notifications to several inboxes |
 
 ## Start a Project
 
@@ -47,6 +48,28 @@ Add the variables, then deploy again. A deployment does not pick up variables th
 Nothing is emailed. The API responds with `unavailable` (503) or `send_failed` (502). The page says it didn’t send and links **chris@madebylumi.com**. The brief stays on the page and can still be downloaded. The response does not name the missing variable.
 
 Required fields, checked again on the server: name, email, and the brief (`message`). “I’m thinking about” and timing must be one of the options on the form.
+
+## Form forwarding for client sites
+
+Some client sites (Squarespace) can send each form's notification to only one address. `api/forward-inquiry.mjs` fans that one notification out to several inboxes.
+
+1. The client's form sends its notification to a Resend receiving address (the account's `<id>.resend.app` address, no DNS needed).
+2. Resend posts an `email.received` webhook to `https://madebylumi.com/api/forward-inquiry`.
+3. The function checks the webhook signature, reads the full email from Resend, checks the sender is on the route's list and that SPF or DKIM passed, then sends one copy to every recipient on the route. Reply-to is the person who filled in the form.
+4. The Resend email id is the idempotency key, so a retried webhook does not send a second copy within 24 hours.
+
+If anything stops a copy, the function sends a short note (no client content) to `FORWARD_ALERT_TO`. Send failures return 502, so Resend retries the webhook on its own schedule. The original stays in Resend under Emails → Receiving.
+
+Client addresses are not in this repo. They live in `FORWARD_ROUTES`:
+
+| Name | Value |
+|------|--------|
+| `RESEND_WEBHOOK_SECRET` | Signing secret of the `email.received` webhook (`whsec_...`). Secret. |
+| `RESEND_RECEIVING_KEY` | Resend key that can read received emails (full access). Secret. |
+| `FORWARD_ROUTES` | JSON list: `[{"inbound":"client@<id>.resend.app","to":["a@client.com","b@client.com"],"from":"Client Website <inquiries@madebylumi.com>","senders":["form-submission@squarespace.info"]}]` |
+| `FORWARD_ALERT_TO` | Where failure notes go, for example `chris@madebylumi.com` |
+
+`RESEND_API_KEY` (above) sends the copies.
 
 ## Content rules
 
